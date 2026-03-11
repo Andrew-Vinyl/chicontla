@@ -50,7 +50,7 @@ export default function Intro() {
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={{ visible: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } } }}
-            className="lg:col-span-6 font-body text-lg lg:text-xl text-background leading-relaxed space-y-8"
+            className="order-2 lg:order-1 lg:col-span-6 font-body text-lg lg:text-xl text-background leading-relaxed space-y-8"
           >
             <motion.p variants={fadeUp}>
               In the coffee-growing region surrounding Chicontla, Mexico, the path to higher
@@ -100,7 +100,7 @@ export default function Intro() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-6 flex flex-col gap-5"
+            className="order-1 lg:order-2 lg:col-span-6 flex flex-col gap-5"
           >
             {/* Group photo — 4:3 matches the photo's natural ratio exactly */}
             <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>

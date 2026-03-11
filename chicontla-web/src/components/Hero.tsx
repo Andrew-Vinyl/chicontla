@@ -72,7 +72,7 @@ export default function Hero() {
 
           <motion.h1
             variants={itemVariants}
-            className="text-7xl sm:text-8xl lg:text-[110px] xl:text-[130px] font-heading font-black text-white leading-[0.85] tracking-tighter mb-10 hyphens-auto"
+            className="text-[38px] sm:text-8xl lg:text-[110px] xl:text-[130px] font-heading font-black text-white leading-[0.85] tracking-tighter mb-10"
           >
             SCHOLARSHIP<br />
             <span className="text-donate">PROGRAM</span>
@@ -116,7 +116,7 @@ export default function Hero() {
               <p className="font-heading font-bold text-4xl text-donate mb-1">4</p>
               <p className="font-body text-xs text-white/70 uppercase tracking-wider">Years Coached</p>
             </div>
-            <div className="col-span-2 hidden sm:block">
+            <div className="col-span-2 sm:col-span-2">
               <p className="font-heading font-bold text-4xl text-donate mb-1">Puebla, MX</p>
               <p className="font-body text-xs text-white/70 uppercase tracking-wider">Target Region</p>
             </div>
