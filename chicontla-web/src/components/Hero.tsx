@@ -2,24 +2,51 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type { HeroContent } from "@/sanity/lib/types";
 
-export default function Hero() {
+interface HeroProps {
+  data?: HeroContent | null;
+}
+
+// Hardcoded fallbacks so the page still renders if Sanity is unavailable
+const FALLBACK: HeroContent = {
+  eyebrow: "Invest in the Future",
+  headingLine1: "SCHOLARSHIP",
+  headingLine2: "PROGRAM",
+  bodyText:
+    "We work with coffee-farming families to maximize the quality and market value of their coffee, bringing promise of higher economic return for their good work.",
+  primaryButton: { label: "Fund a Scholar", url: "https://coffeegrowingcommunity.org/?give=8NDR96EK" },
+  secondaryButton: { label: "Read Stories", url: "#stories" },
+  stats: [
+    { _key: "s1", value: "100%", label: "Tuition Covered" },
+    { _key: "s2", value: "4 Years", label: "Coached & Mentored" },
+    { _key: "s3", value: "Puebla, MX", label: "Target Region" },
+  ],
+};
+
+export default function Hero({ data }: HeroProps) {
+  const d = data ?? FALLBACK;
+
   const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
-    }
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    },
   };
 
   const itemVariants: any = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+    },
   };
 
   return (
     <section className="min-h-screen relative flex flex-col overflow-hidden">
-      {/* Background: Ken Burns zoom loop on the Joanne field photo */}
+      {/* Background: Ken Burns zoom loop */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.div
           className="absolute inset-0"
@@ -55,7 +82,7 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── Text content ── */}
+      {/* Text content */}
       <div className="container mx-auto px-6 max-w-[1400px] relative z-10 flex-1 flex flex-col justify-center pt-28 pb-16">
         <motion.div
           variants={containerVariants}
@@ -66,7 +93,7 @@ export default function Hero() {
           <motion.div variants={itemVariants} className="mb-8 flex items-center gap-4">
             <span className="w-12 h-1 bg-donate" />
             <span className="text-donate font-body tracking-[0.2em] font-bold text-sm uppercase">
-              Invest in the Future
+              {d.eyebrow}
             </span>
           </motion.div>
 
@@ -74,32 +101,35 @@ export default function Hero() {
             variants={itemVariants}
             className="text-[38px] sm:text-8xl lg:text-[110px] xl:text-[130px] font-heading font-black text-white leading-[0.85] tracking-tighter mb-10"
           >
-            SCHOLARSHIP<br />
-            <span className="text-donate">PROGRAM</span>
+            {d.headingLine1}
+            <br />
+            <span className="text-donate">{d.headingLine2}</span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
             className="text-xl lg:text-2xl text-white/90 font-body leading-relaxed max-w-2xl mb-12 border-l-4 border-donate pl-6 py-2"
           >
-            We work with coffee-farming families to maximize the quality and market value
-            of their coffee, bringing promise of higher economic return for their good work.
+            {d.bodyText}
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-16">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-16"
+          >
             <a
-              href="https://coffeegrowingcommunity.org/?give=8NDR96EK"
+              href={d.primaryButton.url}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-donate text-white hover:bg-accent font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center shadow-lg"
             >
-              Fund a Scholar
+              {d.primaryButton.label}
             </a>
             <a
-              href="#stories"
+              href={d.secondaryButton.url}
               className="bg-transparent border border-white/30 text-white hover:bg-white/10 font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center"
             >
-              Read Stories
+              {d.secondaryButton.label}
             </a>
           </motion.div>
 
@@ -108,18 +138,12 @@ export default function Hero() {
             variants={itemVariants}
             className="pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-8"
           >
-            <div>
-              <p className="font-heading font-bold text-4xl text-donate mb-1">100%</p>
-              <p className="font-body text-xs text-white/70 uppercase tracking-wider">Tuition Covered</p>
-            </div>
-            <div>
-              <p className="font-heading font-bold text-4xl text-donate mb-1">4</p>
-              <p className="font-body text-xs text-white/70 uppercase tracking-wider">Years Coached</p>
-            </div>
-            <div className="col-span-2 sm:col-span-2">
-              <p className="font-heading font-bold text-4xl text-donate mb-1">Puebla, MX</p>
-              <p className="font-body text-xs text-white/70 uppercase tracking-wider">Target Region</p>
-            </div>
+            {d.stats?.map((stat) => (
+              <div key={stat._key} className={d.stats.length > 2 && d.stats.indexOf(stat) === d.stats.length - 1 ? "col-span-2 sm:col-span-2" : ""}>
+                <p className="font-heading font-bold text-4xl text-donate mb-1">{stat.value}</p>
+                <p className="font-body text-xs text-white/70 uppercase tracking-wider">{stat.label}</p>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>

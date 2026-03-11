@@ -9,13 +9,18 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@portabletext/react": "^6.0.3",
+    "@sanity/client": "^7.17.0",
+    "@sanity/image-url": "^2.0.3",
     "@tailgrids/icons": "^2.0.0",
     "framer-motion": "^12.35.2",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
+    "next-sanity": "^12.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-router-dom": "^7.13.1",
+    "sanity": "^5.14.1",
     "swiper": "^12.1.2"
   },
   "devDependencies": {

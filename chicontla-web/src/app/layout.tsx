@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Onest } from "next/font/google";
 import "./globals.css";
+import { SanityLive } from "@/sanity/lib/live";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,6 +29,7 @@ export default function RootLayout({
         className={`${inter.variable} ${onest.variable} antialiased`}
       >
         {children}
+        <SanityLive />
       </body>
     </html>
   );
