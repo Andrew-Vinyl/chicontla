@@ -1,75 +1,60 @@
-import { PortableText, PortableTextReactComponents } from "@portabletext/react";
-import Image from "next/image";
-import { ScholarSection, Scholar } from "@/lib/sanity.types";
+"use client";
 
-const FALLBACK_SECTION: ScholarSection = {
-  _type: "scholarSection",
-  preheading: "STORIES OUT OF CHICONTLA",
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { PortableText } from "@portabletext/react";
+import type { Scholar, ScholarsSectionContent } from "@/sanity/lib/types";
+
+interface TestimonialsProps {
+  scholars?: Scholar[];
+  sectionData?: ScholarsSectionContent | null;
+}
+
+const FALLBACK_SECTION: ScholarsSectionContent = {
+  eyebrow: "Stories Out of Chicontla",
   heading: "MEET THE SCHOLARS",
-  subheading:
+  description:
     "The direct stories of individuals from Chicontla whose lives and communities have been forever changed by a college education.",
 };
 
-interface TestimonialsProps {
-  scholars: Scholar[];
-  sectionData: ScholarSection | null;
-}
-
+// Hardcoded scholars as fallback if Sanity returns none
 const FALLBACK_SCHOLARS: Scholar[] = [
   {
-    _id: "fallback-1",
-    _type: "scholar",
-    _createdAt: "",
-    _updatedAt: "",
-    _rev: "",
+    _id: "kari",
     name: "Erika Lizeth Barqueras Perez",
-    order: 1,
     quote:
       "Kari will continue to faithfully serve her community and gives God the credit for graciously providing her the opportunity to pursue a college degree.",
     story: [],
+    order: 1,
   },
   {
-    _id: "fallback-2",
-    _type: "scholar",
-    _createdAt: "",
-    _updatedAt: "",
-    _rev: "",
+    _id: "julio",
     name: "José Julian Hernandez Gomez",
+    quote: "He would later become the first person from La Tranca to graduate from college!",
+    story: [],
     order: 2,
-    quote:
-      "He would later become the first person from La Tranca to graduate from college!",
-    story: [],
   },
   {
-    _id: "fallback-3",
-    _type: "scholar",
-    _createdAt: "",
-    _updatedAt: "",
-    _rev: "",
+    _id: "naomi",
     name: "Naomi Lael Cevedeo Velázquez",
-    order: 3,
     quote:
-      "By God's grace, Naomi applied and earned a scholarship through Coffee Growing Community. The organization has faith in her that she will bring the dream to fruition.",
+      "By God's grace, Naomi applied and earned a scholarship through Coffee Growing Community.",
     story: [],
+    order: 3,
   },
   {
-    _id: "fallback-4",
-    _type: "scholar",
-    _createdAt: "",
-    _updatedAt: "",
-    _rev: "",
+    _id: "hector",
     name: "Héctor Ramírez Romero",
-    order: 4,
-    quote:
-      "CGC has faith that Hector will continue to steward the gift to better his family and community.",
+    quote: "CGC has faith that Hector will continue to steward the gift to better his family and community.",
     story: [],
+    order: 4,
   },
 ];
 
-const scholarImages: Record<string, string> = {
-  "Erika Lizeth Barqueras Perez": "/images/Kari-solo.jpeg",
-  "José Julian Hernandez Gomez": "/images/Julio-solo.jpeg",
-  "Naomi Lael Cevedeo Velázquez": "/images/Naomi-Headshot.jpg",
+const SCHOLAR_IMAGES: Record<string, string> = {
+  "Erika Lizeth Barqueras Perez": "/images/Kari-solo.JPG",
+  "José Julian Hernandez Gomez": "/images/Julio-solo.JPG",
+  "Naomi Lael Cevedeo Velázquez": "/images/Naomi-solo.JPG",
   "Héctor Ramírez Romero": "/images/Hector-solo.JPG",
 };
 
@@ -92,74 +77,70 @@ function makePortableTextComponents(isFirst: boolean) {
 
 export default function Testimonials({ scholars, sectionData }: TestimonialsProps) {
   const section = sectionData ?? FALLBACK_SECTION;
-  const displayScholars =
-    scholars && scholars.length > 0 ? scholars : FALLBACK_SCHOLARS;
-  const sortedScholars = [...displayScholars].sort(
-    (a, b) => (a.order ?? 999) - (b.order ?? 999)
-  );
+  const displayScholars = scholars && scholars.length > 0 ? scholars : FALLBACK_SCHOLARS;
 
   return (
-    <section id="scholars" className="bg-cream py-16 md:py-24">
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Section header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
+    <section className="bg-surface py-24 lg:py-32 relative border-b border-background/10" id="stories">
+      <div className="container mx-auto px-6 max-w-[1200px] relative z-10">
+
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-20 flex flex-col md:flex-row md:items-end justify-between border-b-2 border-background/10 pb-6 gap-6"
+        >
           <div>
-            <p className="text-xs font-body font-bold tracking-[0.25em] text-donate uppercase mb-2">
-              {section.preheading}
-            </p>
-            <h2 className="text-4xl md:text-5xl font-heading font-black text-green uppercase">
+            <span className="inline-block text-donate font-body font-bold uppercase tracking-[0.2em] text-sm mb-4">
+              {section.eyebrow}
+            </span>
+            <h2 className="text-4xl lg:text-5xl font-heading font-black text-primary tracking-tighter uppercase">
               {section.heading}
             </h2>
           </div>
-          <div className="md:text-right md:max-w-xs">
-            <p className="text-sm font-body text-text leading-relaxed">
-              {section.subheading}
-            </p>
-          </div>
-        </div>
+          <p className="text-text font-body text-lg max-w-sm md:text-right">
+            {section.description}
+          </p>
+        </motion.div>
 
-        <hr className="border-donate/30 mb-16" />
-
-        {/* Scholar cards */}
-        <div className="space-y-24">
-          {sortedScholars.map((scholar, index) => {
-            const imageSrc = scholarImages[scholar.name ?? ""] ?? null;
+        {/* Scholars List */}
+        <div className="flex flex-col gap-24">
+          {displayScholars.map((scholar, i) => {
+            // Use uploaded Sanity image if available, otherwise fall back to local
+            const imgSrc = SCHOLAR_IMAGES[scholar.name] ?? "/images/Kari-solo.JPG";
 
             return (
-              <div
+              <motion.div
                 key={scholar._id}
-                className={`flex flex-col ${
-                  index % 2 === 0
-                    ? "md:flex-row"
-                    : "md:flex-row-reverse"
-                } gap-10 items-start`}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.05 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start group"
               >
-                {/* Left column: photo + quote */}
-                <div className="w-full md:w-72 flex-shrink-0">
-                  <div className="relative w-full aspect-[3/4] overflow-hidden rounded mb-6">
-                    {imageSrc ? (
-                      <Image
-                        src={imageSrc}
-                        alt={scholar.name ?? "Scholar"}
-                        fill
-                        className="object-cover object-top"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-green/20 flex items-center justify-center">
-                        <span className="text-green/40 text-4xl">📷</span>
-                      </div>
-                    )}
+                {/* Image & Pull Quote Column */}
+                <div className={`lg:col-span-4 ${i % 2 === 1 ? "lg:order-2 lg:col-start-9" : ""}`}>
+                  <div className="aspect-[4/5] relative bg-background/5 border border-background/10 overflow-hidden rounded-2xl">
+                    <Image
+                      src={imgSrc}
+                      alt={scholar.name}
+                      fill
+                      className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                    />
                   </div>
-                  <div className="bg-green p-4 rounded">
-                    <p className="text-cream font-body text-sm leading-relaxed font-bold italic">
+                  {/* Desktop pull quote */}
+                  <div className="mt-6 pl-5 py-4 border-l-4 border-donate bg-background/5 rounded-r-2xl pr-5 hidden lg:block">
+                    <p className="font-heading font-bold text-base text-background leading-snug">
                       {scholar.quote}
                     </p>
                   </div>
                 </div>
 
-                {/* Right column: name + story */}
-                <div className="flex-1">
-                  <h3 className="text-3xl md:text-4xl font-heading font-black text-green uppercase mb-8">
+                {/* Story Column */}
+                <div className={`lg:col-span-8 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                  <h3 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-black text-primary uppercase tracking-tight mb-8">
                     {scholar.name}
                   </h3>
 
@@ -185,8 +166,15 @@ export default function Testimonials({ scholars, sectionData }: TestimonialsProp
                       </p>
                     )}
                   </div>
+
+                  {/* Mobile pull quote */}
+                  <div className="mt-6 pl-5 py-4 border-l-4 border-donate bg-background/5 rounded-r-2xl pr-5 lg:hidden">
+                    <p className="font-heading font-bold text-base text-background leading-snug">
+                      {scholar.quote}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
