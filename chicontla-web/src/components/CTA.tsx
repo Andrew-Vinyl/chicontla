@@ -64,7 +64,7 @@ export default function CTA() {
                 Donate Now
               </a>
               <a
-                href="https://coffeegrowingcommunity.org/?give=8NDR96EK"
+                href="https://coffeegrowingcommunity.org/youth-leadership-program-inspires-the-next-generation/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex justify-center items-center bg-transparent border border-white/30 hover:bg-white/10 text-white font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center"
