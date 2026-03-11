@@ -1,6 +1,7 @@
 import { groq } from "next-sanity";
 
 // ── Homepage singleton (Hero + Intro + Scholars header) ───────────────────
+// Fetch by _type only — the actual document has a UUID, not the string "homepage"
 export const homepageQuery = groq`*[_type == "homepage"][0]`;
 
 // ── Individual Scholar profiles ───────────────────────────────────────────
@@ -16,7 +17,8 @@ export const scholarsQuery = groq`
 `;
 
 // ── CTA Section singleton ─────────────────────────────────────────────────
-export const ctaContentQuery = groq`*[_type == "ctaContent" && _id == "ctaContent"][0]`;
+// Fetch by _type only — the actual document has a UUID, not the string "ctaContent"
+export const ctaContentQuery = groq`*[_type == "ctaContent"][0]`;
 
 // ── Legacy aliases (kept for compatibility) ───────────────────────────────
 export const heroContentQuery = homepageQuery;

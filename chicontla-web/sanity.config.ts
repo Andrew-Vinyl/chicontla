@@ -2,11 +2,14 @@
 
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
-import { presentationTool } from "sanity/presentation";
 
 import { homepageSchema } from "./src/sanity/schemaTypes/homepage";
 import { scholarSchema } from "./src/sanity/schemaTypes/scholars";
 import { ctaContentSchema } from "./src/sanity/schemaTypes/ctaContent";
+
+// IDs of the singleton documents that already contain content in Sanity
+const HOMEPAGE_DOC_ID = "694e7b59-8b97-417f-b3f6-f98668b35e1a";
+const CTA_DOC_ID = "879e84c0-6b8f-4c58-ae99-2eef51e620b9";
 
 export default defineConfig({
   name: "chicontla",
@@ -27,7 +30,7 @@ export default defineConfig({
               .child(
                 S.document()
                   .schemaType("homepage")
-                  .documentId("homepage")
+                  .documentId(HOMEPAGE_DOC_ID)
                   .title("Homepage Content")
               ),
 
@@ -44,18 +47,12 @@ export default defineConfig({
               .child(
                 S.document()
                   .schemaType("ctaContent")
-                  .documentId("ctaContent")
+                  .documentId(CTA_DOC_ID)
                   .title("CTA Section")
               ),
           ]),
     }),
-    presentationTool({
-      previewUrl: {
-        draftMode: {
-          enable: "/api/draft-mode/enable",
-        },
-      },
-    }),
+    // presentationTool removed — was causing ?__vercel_draft=1 redirect on the live site
   ],
 
   schema: {
