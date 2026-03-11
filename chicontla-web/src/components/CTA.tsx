@@ -56,7 +56,7 @@ export default function CTA() {
 
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <a
-                href="https://coffeegrowingcommunity.org/#/fundraising/forms/8NDR96EK%20"
+                href="https://coffeegrowingcommunity.org/?give=8NDR96EK"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex justify-center items-center bg-donate hover:bg-accent text-white font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center shadow-lg"
@@ -64,7 +64,7 @@ export default function CTA() {
                 Donate Now
               </a>
               <a
-                href="https://coffeegrowingcommunity.org/"
+                href="https://coffeegrowingcommunity.org/?give=8NDR96EK"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex justify-center items-center bg-transparent border border-white/30 hover:bg-white/10 text-white font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center"

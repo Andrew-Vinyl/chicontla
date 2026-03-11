@@ -88,7 +88,7 @@ export default function Hero() {
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-16">
             <a
-              href="https://coffeegrowingcommunity.org/#/fundraising/forms/8NDR96EK%20"
+              href="https://coffeegrowingcommunity.org/?give=8NDR96EK"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-donate text-white hover:bg-accent font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center shadow-lg"
