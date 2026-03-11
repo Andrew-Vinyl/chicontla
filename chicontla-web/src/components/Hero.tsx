@@ -66,7 +66,7 @@ export default function Hero() {
           <motion.div variants={itemVariants} className="mb-8 flex items-center gap-4">
             <span className="w-12 h-1 bg-donate" />
             <span className="text-donate font-body tracking-[0.2em] font-bold text-sm uppercase">
-              Scholarship Program
+              Invest in the Future
             </span>
           </motion.div>
 
@@ -74,8 +74,8 @@ export default function Hero() {
             variants={itemVariants}
             className="text-7xl sm:text-8xl lg:text-[110px] xl:text-[130px] font-heading font-black text-white leading-[0.85] tracking-tighter mb-10 hyphens-auto"
           >
-            INVEST IN THE<br />
-            <span className="text-donate">FUTURE</span>
+            SCHOLARSHIP<br />
+            <span className="text-donate">PROGRAM</span>
           </motion.h1>
 
           <motion.p
