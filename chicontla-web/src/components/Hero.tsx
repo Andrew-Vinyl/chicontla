@@ -2,19 +2,19 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import type { HeroContent } from "@/sanity/lib/types";
+import type { HomepageContent } from "@/sanity/lib/types";
 
 interface HeroProps {
-  data?: HeroContent | null;
+  data?: HomepageContent | null;
 }
 
 // Hardcoded fallbacks so the page still renders if Sanity is unavailable
-const FALLBACK: HeroContent = {
+const FALLBACK = {
   eyebrow: "Invest in the Future",
   headingLine1: "SCHOLARSHIP",
   headingLine2: "PROGRAM",
   bodyText:
-    "We work with coffee-farming families to maximize the quality and market value of their coffee, bringing promise of higher economic return for their good work.",
+    "Coffee Growing Community provides full-ride college scholarships to young people from Chicontla, Mexico — empowering them to transform their lives, families, and community.",
   primaryButton: { label: "Fund a Scholar", url: "https://coffeegrowingcommunity.org/?give=8NDR96EK" },
   secondaryButton: { label: "Read Stories", url: "#stories" },
   stats: [
@@ -25,7 +25,14 @@ const FALLBACK: HeroContent = {
 };
 
 export default function Hero({ data }: HeroProps) {
-  const d = data ?? FALLBACK;
+  // Read from the new prefixed homepage fields, fallback to FALLBACK values
+  const eyebrow = data?.heroEyebrow ?? FALLBACK.eyebrow;
+  const headingLine1 = data?.heroHeadingLine1 ?? FALLBACK.headingLine1;
+  const headingLine2 = data?.heroHeadingLine2 ?? FALLBACK.headingLine2;
+  const bodyText = data?.heroBodyText ?? FALLBACK.bodyText;
+  const primaryButton = data?.heroPrimaryButton ?? FALLBACK.primaryButton;
+  const secondaryButton = data?.heroSecondaryButton ?? FALLBACK.secondaryButton;
+  const stats = data?.heroStats ?? FALLBACK.stats;
 
   const containerVariants: any = {
     hidden: { opacity: 0 },
@@ -93,7 +100,7 @@ export default function Hero({ data }: HeroProps) {
           <motion.div variants={itemVariants} className="mb-8 flex items-center gap-4">
             <span className="w-12 h-1 bg-donate" />
             <span className="text-donate font-body tracking-[0.2em] font-bold text-sm uppercase">
-              {d.eyebrow}
+              {eyebrow}
             </span>
           </motion.div>
 
@@ -101,16 +108,16 @@ export default function Hero({ data }: HeroProps) {
             variants={itemVariants}
             className="text-[38px] sm:text-8xl lg:text-[110px] xl:text-[130px] font-heading font-black text-white leading-[0.85] tracking-tighter mb-10"
           >
-            {d.headingLine1}
+            {headingLine1}
             <br />
-            <span className="text-donate">{d.headingLine2}</span>
+            <span className="text-donate">{headingLine2}</span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
             className="text-xl lg:text-2xl text-white/90 font-body leading-relaxed max-w-2xl mb-12 border-l-4 border-donate pl-6 py-2"
           >
-            {d.bodyText}
+            {bodyText}
           </motion.p>
 
           <motion.div
@@ -118,18 +125,18 @@ export default function Hero({ data }: HeroProps) {
             className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-16"
           >
             <a
-              href={d.primaryButton.url}
+              href={primaryButton.url}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-donate text-white hover:bg-accent font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center shadow-lg"
             >
-              {d.primaryButton.label}
+              {primaryButton.label}
             </a>
             <a
-              href={d.secondaryButton.url}
+              href={secondaryButton.url}
               className="bg-transparent border border-white/30 text-white hover:bg-white/10 font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center"
             >
-              {d.secondaryButton.label}
+              {secondaryButton.label}
             </a>
           </motion.div>
 
@@ -138,8 +145,8 @@ export default function Hero({ data }: HeroProps) {
             variants={itemVariants}
             className="pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-8"
           >
-            {d.stats?.map((stat) => (
-              <div key={stat._key} className={d.stats.length > 2 && d.stats.indexOf(stat) === d.stats.length - 1 ? "col-span-2 sm:col-span-2" : ""}>
+            {stats?.map((stat, i) => (
+              <div key={stat._key ?? i} className={stats.length > 2 && i === stats.length - 1 ? "col-span-2 sm:col-span-2" : ""}>
                 <p className="font-heading font-bold text-4xl text-donate mb-1">{stat.value}</p>
                 <p className="font-body text-xs text-white/70 uppercase tracking-wider">{stat.label}</p>
               </div>

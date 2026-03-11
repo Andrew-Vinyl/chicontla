@@ -4,9 +4,8 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { presentationTool } from "sanity/presentation";
 
-import { heroContentSchema } from "./src/sanity/schemaTypes/heroContent";
-import { introContentSchema } from "./src/sanity/schemaTypes/introContent";
-import { scholarsSectionSchema, scholarSchema } from "./src/sanity/schemaTypes/scholars";
+import { homepageSchema } from "./src/sanity/schemaTypes/homepage";
+import { scholarSchema } from "./src/sanity/schemaTypes/scholars";
 import { ctaContentSchema } from "./src/sanity/schemaTypes/ctaContent";
 
 export default defineConfig({
@@ -22,21 +21,32 @@ export default defineConfig({
         S.list()
           .title("Content")
           .items([
+            // ── Singleton: Homepage (Hero + Intro + Scholars Header) ──
             S.listItem()
-              .title("Hero Section")
-              .child(S.document().schemaType("heroContent").documentId("heroContent")),
-            S.listItem()
-              .title("Intro Section")
-              .child(S.document().schemaType("introContent").documentId("introContent")),
-            S.listItem()
-              .title("Scholars Section Header")
-              .child(S.document().schemaType("scholarsSection").documentId("scholarsSection")),
+              .title("🏠 Homepage")
+              .child(
+                S.document()
+                  .schemaType("homepage")
+                  .documentId("homepage")
+                  .title("Homepage Content")
+              ),
+
             S.divider(),
-            S.documentTypeListItem("scholar").title("Scholars"),
+
+            // ── Collection: Individual Scholar profiles ──
+            S.documentTypeListItem("scholar").title("🎓 Scholars"),
+
             S.divider(),
+
+            // ── Singleton: CTA Section ──
             S.listItem()
-              .title("CTA Section")
-              .child(S.document().schemaType("ctaContent").documentId("ctaContent")),
+              .title("📣 CTA Section")
+              .child(
+                S.document()
+                  .schemaType("ctaContent")
+                  .documentId("ctaContent")
+                  .title("CTA Section")
+              ),
           ]),
     }),
     presentationTool({
@@ -50,9 +60,7 @@ export default defineConfig({
 
   schema: {
     types: [
-      heroContentSchema,
-      introContentSchema,
-      scholarsSectionSchema,
+      homepageSchema,
       scholarSchema,
       ctaContentSchema,
     ],

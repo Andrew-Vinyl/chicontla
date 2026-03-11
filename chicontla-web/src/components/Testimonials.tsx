@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
-import type { Scholar, ScholarsSectionContent } from "@/sanity/lib/types";
+import type { Scholar, HomepageContent } from "@/sanity/lib/types";
 
 interface TestimonialsProps {
   scholars?: Scholar[];
-  sectionData?: ScholarsSectionContent | null;
+  sectionData?: HomepageContent | null;
 }
 
-const FALLBACK_SECTION: ScholarsSectionContent = {
+const FALLBACK_SECTION = {
   eyebrow: "Stories Out of Chicontla",
   heading: "MEET THE SCHOLARS",
   description:
@@ -76,7 +76,12 @@ function makePortableTextComponents(isFirst: boolean) {
 }
 
 export default function Testimonials({ scholars, sectionData }: TestimonialsProps) {
-  const section = sectionData ?? FALLBACK_SECTION;
+  // Map from the unified HomepageContent fields to the flat shape this component uses
+  const section = {
+    eyebrow: sectionData?.scholarsEyebrow ?? FALLBACK_SECTION.eyebrow,
+    heading: sectionData?.scholarsHeading ?? FALLBACK_SECTION.heading,
+    description: sectionData?.scholarsDescription ?? FALLBACK_SECTION.description,
+  };
   const displayScholars = scholars && scholars.length > 0 ? scholars : FALLBACK_SCHOLARS;
 
   return (
