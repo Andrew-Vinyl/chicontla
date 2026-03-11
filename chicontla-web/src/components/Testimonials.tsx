@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
@@ -51,48 +54,64 @@ Since graduating from his program, Hector has been able to teach ESL classes to 
 
 export default function Testimonials() {
   return (
-    <section className="bg-color-white py-20 lg:py-32" id="stories">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-16 max-w-2xl mx-auto">
-          <span className="text-color-accent font-heading font-bold uppercase tracking-wider text-sm">
+    <section className="bg-[#F2F2F2] py-24 lg:py-32 relative" id="stories">
+      <div className="container mx-auto px-4 max-w-6xl relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-24 max-w-2xl mx-auto"
+        >
+          <span className="inline-block py-1 px-4 rounded-full bg-color-primary/10 text-color-primary font-heading font-bold uppercase tracking-wider text-sm mb-6">
             Stories of Impact
           </span>
-          <h2 className="text-4xl lg:text-5xl font-heading font-bold text-color-primary mt-4 mb-6">
+          <h2 className="text-4xl lg:text-6xl font-heading font-extrabold text-[#020D19] mb-6">
             Meet the Scholars
           </h2>
-          <p className="text-lg text-color-text font-body">
+          <p className="text-xl text-color-text font-body leading-relaxed">
             These are the direct stories of individuals from Chicontla whose lives and communities have been forever changed by a college education.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-32">
           {testimonials.map((t, i) => (
-            <div key={i} className={`flex flex-col lg:flex-row gap-12 items-start ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-              <div className="w-full lg:w-1/3 shrink-0 relative">
-                <div className="aspect-square relative rounded-2xl overflow-hidden shadow-xl border border-gray-100 transform rotate-1 hover:rotate-0 transition-transform duration-300">
-                  {/* Using object-cover to uniformly crop images keeping faces visible (which are usually near center/top) */}
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className={`flex flex-col lg:flex-row gap-16 items-center ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+            >
+              <div className="w-full lg:w-5/12 shrink-0 relative">
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl group transition-transform duration-500 hover:-translate-y-2">
+                  <div className="absolute inset-0 bg-color-primary/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <Image 
                     src={t.image} 
                     alt={t.name}
                     fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-color-background/60 to-transparent"></div>
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <h3 className="text-white font-heading font-bold text-2xl drop-shadow-md">{t.name}</h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#020D19]/90 via-[#020D19]/20 to-transparent z-10"></div>
+                  <div className="absolute bottom-8 left-8 right-8 z-20">
+                    <h3 className="text-white font-heading font-bold text-3xl leading-tight drop-shadow-lg">{t.name}</h3>
                   </div>
                 </div>
+                
+                {/* Decorative Elements */}
+                <div className="absolute -z-10 -bottom-6 -right-6 w-full h-full border-2 border-color-donate/30 rounded-3xl"></div>
               </div>
               
-              <div className="w-full lg:w-2/3">
-                <div className="prose prose-lg prose-p:text-color-text/90 prose-p:leading-relaxed font-body max-w-none">
-                  {t.story.split('\n\n').map((paragraph, pIdx) => (
-                    <p key={pIdx} className="mb-4">{paragraph}</p>
+              <div className="w-full lg:w-7/12">
+                <div className="prose prose-lg prose-p:text-[#333333] prose-p:leading-relaxed font-body max-w-none bg-white p-8 lg:p-12 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+                  {t.story.split('\\n\\n').map((paragraph, pIdx) => (
+                    <p key={pIdx} className="mb-6 last:mb-0">{paragraph}</p>
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
