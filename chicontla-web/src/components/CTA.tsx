@@ -55,6 +55,17 @@ const FALLBACK: CtaContent = {
 export default function CTA({ data }: CTAProps) {
   const d = data ?? FALLBACK;
 
+  // Destructure optional fields with explicit fallbacks so TS strict-null checks pass
+  const eyebrow = d.eyebrow ?? FALLBACK.eyebrow!;
+  const headingSmall = d.headingSmall ?? FALLBACK.headingSmall!;
+  const headingLarge = d.headingLarge ?? FALLBACK.headingLarge!;
+  const bodyText = d.bodyText ?? FALLBACK.bodyText!;
+  const primaryButtonUrl = d.primaryButton?.url ?? FALLBACK.primaryButton!.url!;
+  const primaryButtonLabel = d.primaryButton?.label ?? FALLBACK.primaryButton!.label!;
+  const secondaryButtonUrl = d.secondaryButton?.url ?? FALLBACK.secondaryButton!.url!;
+  const secondaryButtonLabel = d.secondaryButton?.label ?? FALLBACK.secondaryButton!.label!;
+  const legalText = d.legalText ?? FALLBACK.legalText!;
+
   const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
@@ -90,13 +101,14 @@ export default function CTA({ data }: CTAProps) {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block py-1 text-donate font-body font-bold uppercase tracking-[0.2em] text-sm mb-6 border-b-2 border-donate pb-1">
-              {d.eyebrow}
+              {eyebrow}
             </span>
             <h2 className="font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
-              <span className="block text-3xl lg:text-4xl xl:text-5xl mb-1">{d.headingSmall}</span>
+              <span className="block text-3xl lg:text-4xl xl:text-5xl mb-1">{headingSmall}</span>
               <span className="block text-5xl lg:text-6xl xl:text-7xl">
+                {/* Split headingLarge at the last word to color it */}
                 {(() => {
-                  const words = d.headingLarge.split(" ");
+                  const words = headingLarge.split(" ");
                   const last = words.pop();
                   return (
                     <>
@@ -108,25 +120,25 @@ export default function CTA({ data }: CTAProps) {
               </span>
             </h2>
             <p className="text-xl lg:text-2xl text-white/80 font-body leading-relaxed mb-10 border-l-4 border-donate pl-6">
-              {d.bodyText}
+              {bodyText}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <a
-                href={d.primaryButton.url}
+                href={primaryButtonUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex justify-center items-center bg-donate hover:bg-accent text-white font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center shadow-lg"
               >
-                {d.primaryButton.label}
+                {primaryButtonLabel}
               </a>
               <a
-                href={d.secondaryButton.url}
+                href={secondaryButtonUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex justify-center items-center bg-transparent border border-white/30 hover:bg-white/10 text-white font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center"
               >
-                {d.secondaryButton.label}
+                {secondaryButtonLabel}
               </a>
             </div>
           </motion.div>
@@ -164,7 +176,7 @@ export default function CTA({ data }: CTAProps) {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-20 text-center text-xs text-white/40 font-body uppercase tracking-widest border-t border-white/10 pt-8"
         >
-          {d.legalText}
+          {legalText}
         </motion.p>
       </div>
     </section>
