@@ -4,96 +4,123 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function Hero() {
+  const containerVariants: any = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    }
+  };
+
+  const itemVariants: any = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  };
+
   return (
-    <section className="relative overflow-hidden min-h-screen flex items-center bg-color-background text-color-white pt-20 pb-20 lg:pt-32 lg:pb-32">
-      {/* Full-bleed background image */}
-      <div className="absolute inset-0 z-0">
-        <Image 
-          src="/images/group photo.JPG" 
-          alt="Coffee Growing Community Students" 
-          fill
-          priority
-          className="object-cover object-center"
-          quality={90}
-        />
-        {/* Gradient Overlay: Forest Green to Dark Navy/Transparent */}
-        <div className="absolute inset-0 bg-gradient-to-r from-color-primary/95 via-color-background/80 to-color-background/40 mix-blend-multiply"></div>
-        {/* Secondary subtle gradient for text readability at bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-color-background shadow-2xl via-transparent to-transparent opacity-90"></div>
-      </div>
-      
-      <div className="container mx-auto px-4 relative z-10 max-w-6xl">
-        {/* Logo */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-16"
+    <section className="min-h-screen relative flex flex-col overflow-hidden">
+      {/* Background: Ken Burns zoom loop on the Joanne field photo */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
+          animate={{ scale: [1, 1.12] }}
+          transition={{
+            duration: 18,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "mirror",
+          }}
         >
-          <Image 
-            src="/logo.png" 
-            alt="Coffee Growing Community" 
-            width={240} 
-            height={96} 
-            className="w-auto h-20 object-contain drop-shadow-lg"
+          <Image
+            src="/images/Chicontla-Joanne-WEB-038.jpg"
+            alt="Coffee farming community"
+            fill
+            className="object-cover object-center"
+            priority
+            quality={90}
           />
         </motion.div>
+        <div className="absolute inset-0 bg-primary/82" />
+      </div>
 
-        {/* Content */}
-        <div className="max-w-3xl">
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-5xl lg:text-7xl font-heading font-extrabold leading-tight mb-8 drop-shadow-xl"
+      {/* Brand Logo */}
+      <div className="absolute top-8 left-6 md:left-12 z-50">
+        <Image
+          src="/logo.png"
+          alt="Coffee Growing Community"
+          width={240}
+          height={80}
+          className="w-48 md:w-64 h-auto"
+          priority
+        />
+      </div>
+
+      {/* ── Text content ── */}
+      <div className="container mx-auto px-6 max-w-[1400px] relative z-10 flex-1 flex flex-col justify-center pt-28 pb-16">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="max-w-4xl"
+        >
+          <motion.div variants={itemVariants} className="mb-8 flex items-center gap-4">
+            <span className="w-12 h-1 bg-donate" />
+            <span className="text-donate font-body tracking-[0.2em] font-bold text-sm uppercase">
+              Scholarship Program
+            </span>
+          </motion.div>
+
+          <motion.h1
+            variants={itemVariants}
+            className="text-7xl sm:text-8xl lg:text-[110px] xl:text-[130px] font-heading font-black text-white leading-[0.85] tracking-tighter mb-10 hyphens-auto"
           >
-            What if a cup of coffee could send someone to college?
+            INVEST IN THE<br />
+            <span className="text-donate">FUTURE</span>
           </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="text-lg lg:text-2xl text-color-surface mb-12 leading-relaxed font-body drop-shadow-md max-w-2xl"
+
+          <motion.p
+            variants={itemVariants}
+            className="text-xl lg:text-2xl text-white/90 font-body leading-relaxed max-w-2xl mb-12 border-l-4 border-donate pl-6 py-2"
           >
-            In the mountains of Chicontla, Mexico, families have spent generations growing coffee — and for most of that time, a college education felt entirely out of reach. <span className="font-semibold text-color-white">Coffee Growing Community is changing that, one scholarship at a time.</span>
+            We work with coffee-farming families to maximize the quality and market value
+            of their coffee, bringing promise of higher economic return for their good work.
           </motion.p>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row gap-6 mb-20"
-          >
-            <a 
-              href="#donate" 
-              className="group relative inline-flex justify-center items-center bg-color-donate text-color-white font-heading font-semibold text-xl px-10 py-5 rounded-full overflow-hidden shadow-[0_4px_20px_rgba(162,129,46,0.4)] hover:shadow-[0_8px_30px_rgba(162,129,46,0.6)] hover:-translate-y-1 transition-all duration-300"
+
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-16">
+            <a
+              href="https://coffeegrowingcommunity.org/#/fundraising/forms/8NDR96EK%20"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-donate text-white hover:bg-accent font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center shadow-lg"
             >
-              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
-              <span className="relative z-10">Make it possible for the next student</span>
+              Fund a Scholar
+            </a>
+            <a
+              href="#stories"
+              className="bg-transparent border border-white/30 text-white hover:bg-white/10 font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center"
+            >
+              Read Stories
             </a>
           </motion.div>
-        </div>
-        
-        {/* Stats Grid - Glassmorphism Cards */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12"
-        >
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-colors duration-300">
-            <div className="text-5xl font-heading font-extrabold text-color-accent mb-3 drop-shadow-md">10+</div>
-            <div className="text-color-surface/90 font-body text-lg">Students sponsored through college</div>
-          </div>
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-colors duration-300">
-            <div className="text-5xl font-heading font-extrabold text-color-accent mb-3 drop-shadow-md">4</div>
-            <div className="text-color-surface/90 font-body text-lg">Graduates already serving their communities</div>
-          </div>
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-colors duration-300">
-            <div className="text-5xl font-heading font-extrabold text-color-accent mb-3 drop-shadow-md">1</div>
-            <div className="text-color-surface/90 font-body text-lg">Simple belief: education transforms everything</div>
-          </div>
+
+          {/* Stats strip */}
+          <motion.div
+            variants={itemVariants}
+            className="pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-8"
+          >
+            <div>
+              <p className="font-heading font-bold text-4xl text-donate mb-1">100%</p>
+              <p className="font-body text-xs text-white/70 uppercase tracking-wider">Tuition Covered</p>
+            </div>
+            <div>
+              <p className="font-heading font-bold text-4xl text-donate mb-1">4</p>
+              <p className="font-body text-xs text-white/70 uppercase tracking-wider">Years Coached</p>
+            </div>
+            <div className="col-span-2 hidden sm:block">
+              <p className="font-heading font-bold text-4xl text-donate mb-1">Puebla, MX</p>
+              <p className="font-body text-xs text-white/70 uppercase tracking-wider">Target Region</p>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -1,83 +1,154 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
 export default function Intro() {
+  const fadeUp: any = {
+    hidden: { opacity: 0, y: 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  };
+
   return (
-    <section className="bg-color-surface py-24 lg:py-40 relative overflow-hidden">
-      {/* Decorative Blob */}
-      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-[800px] h-[800px] bg-color-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-      
-      <div className="container mx-auto px-4 max-w-4xl relative z-10">
-        <motion.div 
+    <section className="bg-surface py-24 lg:py-40 border-b border-background/10 overflow-hidden grain-overlay">
+      <div className="container mx-auto px-6 max-w-[1320px] relative z-10">
+
+        {/* ── Section header — full width, prominent at top ── */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 lg:mb-20"
         >
-          <span className="inline-block py-1 px-4 rounded-full bg-color-accent/10 text-color-accent font-heading font-bold uppercase tracking-wider text-sm mb-6">
-            The Scholarship Program
-          </span>
-          <h2 className="text-4xl lg:text-6xl font-heading font-bold text-color-primary leading-tight">
-            A full ride to college — and a commitment to come back home.
-          </h2>
-        </motion.div>
-        
-        <div className="prose prose-lg lg:prose-xl mx-auto text-color-text font-body leading-relaxed max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            className="inline-flex items-center gap-3 text-donate font-body font-bold uppercase tracking-[0.2em] text-sm mb-6"
           >
-            <p className="mb-8">
-              In the coffee-growing region surrounding Chicontla, Mexico, the path to higher education is steep. Transportation alone can mean rising before dawn to catch overcrowded buses for hour-and-a-half commutes each way. For most families in the area, the cost of tuition is simply impossible.
-            </p>
-            <p className="mb-8 text-2xl font-light text-color-background leading-relaxed">
-              Coffee Growing Community&apos;s college scholarship fund exists to remove that barrier entirely.
-            </p>
-            <p className="mb-8">
-              The program covers <strong className="text-color-primary font-semibold">full tuition</strong> for students from the Chicontla area — young adults who show promise, passion, and a desire to serve their community — but who lack the economic means to pursue a degree on their own. Each recipient is paired with a <strong className="text-color-primary font-semibold">dedicated mentor</strong> who walks alongside them throughout their studies, ensuring they have the guidance, accountability, and support they need to succeed.
-            </p>
-            <p className="mb-8">
-              But the scholarship isn&apos;t just about getting a degree. It&apos;s about what comes next.
-            </p>
-            <p className="mb-8">
-              As part of their commitment, scholarship recipients pledge to <strong className="text-color-primary font-semibold">return to their communities</strong> after graduation and apply their skills locally for at least two years. A nursing student becomes a caregiver for families who&apos;ve never had reliable healthcare. An engineer helps design infrastructure for the roads and schools his neighbors use every day. An accountant manages bookkeeping for a dozen local child development centers. The investment doesn&apos;t leave — it stays, multiplies, and takes root.
-            </p>
-            <p className="mb-16">
-              More than <strong className="text-color-primary font-bold text-2xl">10 students</strong> from the Chicontla region have already walked this path. Each one is a first — and each one opens a door for the ones who come next.
-            </p>
-          </motion.div>
-          
+            <span className="w-8 h-0.5 bg-donate" />
+            The Objective
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.18 }}
+            className="text-4xl sm:text-5xl lg:text-7xl font-heading font-black text-background leading-[0.9] tracking-tight max-w-5xl"
+          >
+            A FULL RIDE TO COLLEGE, AND A{" "}
+            <span className="text-primary">COMMITMENT TO IMPACT THEIR COMMUNITY.</span>
+          </motion.h2>
+        </motion.div>
+
+        {/* ── Two-column body ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+          {/* Left: text */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } } }}
+            className="lg:col-span-6 font-body text-lg lg:text-xl text-background leading-relaxed space-y-8"
           >
-            <Quote className="absolute -top-6 -left-6 w-16 h-16 text-color-donate/20 rotate-180" />
-            <blockquote className="relative z-10 border-l-4 border-color-donate pl-8 italic text-2xl lg:text-3xl text-color-primary font-heading my-16 py-4 leading-relaxed font-medium">
-              "CGC has faith that Hector will continue to steward the gift to better his family and community."
-            </blockquote>
+            <motion.p variants={fadeUp}>
+              In the coffee-growing region surrounding Chicontla, Mexico, the path to higher
+              education is steep. Transportation alone can mean rising before dawn to catch
+              overcrowded buses for hour-and-a-half commutes each way. For most families in
+              the area, the cost of tuition is simply impossible.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="pl-6 py-3 border-l-4 border-donate relative bg-background/5 rounded-r-2xl pr-6">
+              <Quote className="absolute -top-6 -left-3 w-10 h-10 text-donate rotate-180 opacity-40" />
+              <p className="text-xl sm:text-2xl font-heading font-bold text-background leading-snug">
+                Coffee Growing Community&apos;s college scholarship fund exists to remove
+                that barrier entirely.
+              </p>
+            </motion.div>
+
+            <motion.p variants={fadeUp}>
+              The program covers <strong className="text-background font-black">full tuition</strong>{" "}
+              for students from the Chicontla area — young adults who show promise, passion,
+              and a desire to serve their community — but who lack the economic means to
+              pursue a degree on their own. Each recipient is paired with a{" "}
+              <strong className="text-background font-black">dedicated mentor</strong> who
+              walks alongside them throughout their studies, ensuring they have the guidance,
+              accountability, and support they need to succeed.
+            </motion.p>
+
+            <motion.p variants={fadeUp}>
+              But the scholarship isn&apos;t just about getting a degree. It&apos;s about
+              what comes next.
+            </motion.p>
+
+            <motion.p variants={fadeUp}>
+              As part of their commitment, scholarship recipients pledge to{" "}
+              <strong className="text-background font-black">return to their communities</strong>{" "}
+              after graduation and apply their skills locally for at least two years. A nursing
+              student becomes a caregiver for families who&apos;ve never had reliable
+              healthcare. An engineer helps design infrastructure for the roads and schools
+              his neighbors use every day. An accountant manages bookkeeping for a dozen local
+              child development centers. The investment doesn&apos;t leave — it stays,
+              multiplies, and takes root.
+            </motion.p>
           </motion.div>
-          
+
+          {/* Right: photo + info cards stacked below */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center font-bold text-color-primary text-2xl lg:text-3xl mt-20 bg-color-white p-12 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 relative overflow-hidden group"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 flex flex-col gap-5"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-color-donate/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <span className="relative z-10 leading-tight block">
-              This is community enrichment at its most direct: give one person a chance at education, and watch an entire community grow stronger.
-            </span>
+            {/* Group photo — 4:3 matches the photo's natural ratio exactly */}
+            <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
+              <Image
+                src="/images/group photo.JPG"
+                alt="Coffee Growing Community Scholarship Recipients"
+                fill
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              {/* Bottom-gradient caption */}
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/65 to-transparent pt-16 pb-5 px-6 flex items-end justify-between">
+                <div>
+                  <span className="block w-6 h-0.5 bg-donate mb-2" />
+                  <p className="font-body text-white/90 text-xs font-semibold uppercase tracking-[0.18em]">
+                    Recent Scholarship Recipients
+                  </p>
+                  <p className="font-body text-white/50 text-xs mt-0.5 tracking-wide">
+                    Chicontla Region, Puebla · Mexico
+                  </p>
+                </div>
+                <div className="flex items-center gap-1.5 text-white/35 text-xs font-body uppercase tracking-widest">
+                  <div className="w-1.5 h-1.5 rounded-full bg-donate animate-pulse" />
+                  CGC
+                </div>
+              </div>
+            </div>
+
+            {/* Card 1: 10+ stat — matches pull-quote style */}
+            <div className="pl-6 py-5 border-l-4 border-donate relative bg-background/5 rounded-r-2xl pr-6 flex items-center gap-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-default">
+              <p className="font-heading font-black text-5xl text-donate shrink-0">10+</p>
+              <p className="font-body text-background/80 text-sm leading-relaxed">
+                Students from the Chicontla region have already walked this path. Each one
+                is a first — and each one opens a door for the ones who come next.
+              </p>
+            </div>
+
+            {/* Card 2: Closing quote — exact same style as the inline pull-quote */}
+            <div className="pl-6 py-4 border-l-4 border-donate relative bg-background/5 rounded-r-2xl pr-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-default">
+              <Quote className="absolute -top-5 -left-3 w-9 h-9 text-donate rotate-180 opacity-40" />
+              <p className="text-lg sm:text-xl font-heading font-bold text-background leading-snug">
+                This is community enrichment at its most direct: give one person a chance at
+                education, and watch an entire community grow stronger.
+              </p>
+            </div>
           </motion.div>
         </div>
+
       </div>
     </section>
   );

@@ -1,149 +1,126 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { GraduationCap, HeartHandshake, Leaf, Users } from "lucide-react";
 
 export default function CTA() {
   const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+      transition: { staggerChildren: 0.1 }
     }
   };
 
   const itemVariants: any = {
     hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   return (
-    <section className="bg-color-background text-color-white py-32 relative overflow-hidden" id="donate">
-      {/* Dynamic Background Elements */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-color-donate/10 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-color-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-color-primary via-color-donate to-color-accent"></div>
+    <section className="relative py-32 overflow-hidden" id="donate">
+      {/* Background photo */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/Chicontla-Joanne-WEB-015.jpg"
+          alt="Coffee farming landscape"
+          fill
+          className="object-cover object-center"
+          quality={90}
+        />
+        {/* Forest Green overlay — same treatment as Hero */}
+        <div className="absolute inset-0 bg-primary/80" />
+      </div>
 
-      <div className="container mx-auto px-4 max-w-5xl relative z-10">
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block py-1 px-6 rounded-full bg-color-donate/10 text-color-donate font-heading font-bold uppercase tracking-wider text-sm mb-8 border border-color-donate/20">
-            Join Us
-          </span>
-          <h2 className="text-5xl lg:text-7xl font-heading font-extrabold mb-8 tracking-tight">
-            The next scholar is waiting.
-          </h2>
-          <p className="text-xl lg:text-2xl text-color-surface/90 font-body mb-8 leading-relaxed max-w-3xl mx-auto font-light">
-            Your gift funds a full-tuition scholarship for a student from Chicontla who will go to college, return home, and serve their community for years to come.
-          </p>
-        </motion.div>
+      <div className="container mx-auto px-6 max-w-[1200px] relative z-10">
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl rounded-[2rem] p-8 lg:p-16 mb-20 text-left relative overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-color-donate/5 to-color-primary/5 pointer-events-none"></div>
-          
-          <div className="relative z-10 space-y-8">
-            <motion.p variants={itemVariants} className="text-xl font-body text-color-surface leading-relaxed">
-              Every dollar given to the Coffee Growing Community scholarship fund goes directly toward tuition — giving a young person from a coffee-farming family the chance to become an engineer, a nurse, a teacher, or an accountant. Not somewhere else. <em className="text-color-donate font-bold not-italic border-b-2 border-color-donate/30 pb-0.5">Right here, in Chicontla.</em>
-            </motion.p>
-            <motion.p variants={itemVariants} className="text-lg font-body text-color-surface/80 leading-relaxed mb-12">
-              When you give, you&apos;re not just funding a degree. You&apos;re funding a doctor who stays in town. A teacher who knows her students&apos; grandparents. An engineer who fixes the roads his family drives every day. You&apos;re funding roots.
-            </motion.p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
-            <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-white/10">
-              <motion.div variants={itemVariants} className="flex items-start group">
-                <div className="w-12 h-12 rounded-xl bg-color-donate/10 flex items-center justify-center mr-6 shrink-0 group-hover:scale-110 group-hover:bg-color-donate/20 transition-all">
-                  <GraduationCap className="w-6 h-6 text-color-donate" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-bold text-xl mb-1 text-white">Full tuition covered</h4>
-                  <p className="text-color-surface/70 font-body leading-relaxed">For students who otherwise couldn&apos;t attend</p>
-                </div>
-              </motion.div>
-              
-              <motion.div variants={itemVariants} className="flex items-start group">
-                <div className="w-12 h-12 rounded-xl bg-color-primary/10 flex items-center justify-center mr-6 shrink-0 group-hover:scale-110 group-hover:bg-color-primary/20 transition-all">
-                  <Users className="w-6 h-6 text-color-primary" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-bold text-xl mb-1 text-white">Mentorship included</h4>
-                  <p className="text-color-surface/70 font-body leading-relaxed">Every student is guided through their entire program</p>
-                </div>
-              </motion.div>
-              
-              <motion.div variants={itemVariants} className="flex items-start group">
-                <div className="w-12 h-12 rounded-xl bg-color-accent/10 flex items-center justify-center mr-6 shrink-0 group-hover:scale-110 group-hover:bg-color-accent/20 transition-all">
-                  <HeartHandshake className="w-6 h-6 text-color-accent" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-bold text-xl mb-1 text-white">Community commitment</h4>
-                  <p className="text-color-surface/70 font-body leading-relaxed">Graduates serve locally for at least two years</p>
-                </div>
-              </motion.div>
-              
-              <motion.div variants={itemVariants} className="flex items-start group">
-                <div className="w-12 h-12 rounded-xl bg-color-white/5 flex items-center justify-center mr-6 shrink-0 group-hover:scale-110 group-hover:bg-color-white/10 transition-all">
-                  <Leaf className="w-6 h-6 text-color-surface" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-bold text-xl mb-1 text-white">Connected to coffee</h4>
-                  <p className="text-color-surface/70 font-body leading-relaxed">Your support honors the families who grow the world&apos;s coffee</p>
-                </div>
-              </motion.div>
+          {/* Left Column: Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block py-1 text-donate font-body font-bold uppercase tracking-[0.2em] text-sm mb-6 border-b-2 border-donate pb-1">
+              For The Future
+            </span>
+            <h2 className="font-heading font-black text-white mb-8 tracking-tighter uppercase leading-[0.9]">
+              <span className="block text-3xl lg:text-4xl xl:text-5xl mb-1">IT&apos;S TIME TO</span>
+              <span className="block text-5xl lg:text-6xl xl:text-7xl">SUPPORT&nbsp;A <span className="text-donate">SCHOLAR.</span></span>
+            </h2>
+            <p className="text-xl lg:text-2xl text-white/80 font-body leading-relaxed mb-10 border-l-4 border-donate pl-6">
+              Your gift funds a full-tuition scholarship for a student from Chicontla who will go to college, return home, and serve their community for years to come.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+              <a
+                href="https://coffeegrowingcommunity.org/#/fundraising/forms/8NDR96EK%20"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex justify-center items-center bg-donate hover:bg-accent text-white font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center shadow-lg"
+              >
+                Donate Now
+              </a>
+              <a
+                href="https://coffeegrowingcommunity.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex justify-center items-center bg-transparent border border-white/30 hover:bg-white/10 text-white font-body font-bold text-sm tracking-widest uppercase px-10 py-5 rounded-full transition-colors duration-300 w-full sm:w-auto text-center"
+              >
+                Learn More
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Key Details Grid */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-0 border-t border-l border-white/10"
+          >
+            {/* Grid Item 1 */}
+            <motion.div variants={itemVariants} className="p-8 border-b border-r border-white/10 hover:bg-white/5 transition-colors">
+              <p className="font-heading font-bold text-4xl text-donate mb-2">100%</p>
+              <h4 className="font-heading font-bold text-xl mb-2 text-white uppercase">Full Tuition Covered</h4>
+              <p className="text-white/60 font-body text-sm leading-relaxed">For students who otherwise couldn't attend.</p>
             </motion.div>
-          </div>
-        </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col sm:flex-row justify-center gap-6 items-center"
-        >
-          <a 
-            href="https://coffeegrowingcommunity.org/donate/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex justify-center items-center bg-color-donate text-color-white font-heading font-bold px-12 py-5 rounded-full text-xl shadow-[0_4px_20px_rgba(162,129,46,0.3)] hover:shadow-[0_8px_30px_rgba(162,129,46,0.5)] transition-all duration-300 transform hover:-translate-y-1 group relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out block"></div>
-            <span className="relative z-10">Donate to the Scholarship Fund</span>
-          </a>
-          
-          <a 
-            href="https://coffeegrowingcommunity.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex justify-center items-center bg-transparent border-2 border-color-white/20 hover:border-color-white/60 hover:bg-white/5 text-color-white font-heading font-semibold px-10 py-5 text-lg rounded-full transition-all duration-300"
-          >
-            Learn more about CGC
-          </a>
-        </motion.div>
-        
-        <motion.p 
+            {/* Grid Item 2 */}
+            <motion.div variants={itemVariants} className="p-8 border-b border-r border-white/10 hover:bg-white/5 transition-colors">
+              <p className="font-heading font-bold text-4xl text-donate mb-2">1:1</p>
+              <h4 className="font-heading font-bold text-xl mb-2 text-white uppercase">Mentorship Included</h4>
+              <p className="text-white/60 font-body text-sm leading-relaxed">Every student is guided through their entire program.</p>
+            </motion.div>
+
+            {/* Grid Item 3 */}
+            <motion.div variants={itemVariants} className="p-8 border-b border-r border-white/10 hover:bg-white/5 transition-colors">
+              <p className="font-heading font-bold text-4xl text-donate mb-2">2 Yrs</p>
+              <h4 className="font-heading font-bold text-xl mb-2 text-white uppercase">Community Contract</h4>
+              <p className="text-white/60 font-body text-sm leading-relaxed">Graduates serve locally for at least two years.</p>
+            </motion.div>
+
+            {/* Grid Item 4 */}
+            <motion.div variants={itemVariants} className="p-8 border-b border-r border-white/10 hover:bg-white/5 transition-colors">
+              <div className="mb-4">
+                <Image src="/logo.png" alt="Coffee Growing Community" width={120} height={40} className="h-8 w-auto" />
+              </div>
+              <h4 className="font-heading font-bold text-xl mb-2 text-white uppercase">Connected To Coffee</h4>
+              <p className="text-white/60 font-body text-sm leading-relaxed">Your support honors the families who grow the world's coffee.</p>
+            </motion.div>
+
+          </motion.div>
+        </div>
+
+        <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 text-center text-sm text-color-surface/40 font-body uppercase tracking-wider"
+          className="mt-20 text-center text-xs text-white/40 font-body uppercase tracking-widest border-t border-white/10 pt-8"
         >
           Coffee Growing Community is a registered nonprofit. All gifts are tax-deductible.
         </motion.p>
