@@ -6,9 +6,9 @@ export const ctaContentSchema = defineType({
   title: "CTA Section",
   fields: [
     defineField({ name: "eyebrow", type: "string", title: "Eyebrow Label" }),
-    defineField({ name: "headingSmall", type: "string", title: "Heading Line 1 (small)" }),
-    defineField({ name: "headingLarge", type: "string", title: "Heading Line 2 (large, last word colored)" }),
-    defineField({ name: "bodyText", type: "text", title: "Body Paragraph" }),
+    defineField({ name: "headingSmall", type: "string", title: 'Heading Small Line (e.g. "IT\'S TIME TO")' }),
+    defineField({ name: "headingLarge", type: "string", title: 'Heading Large Line (e.g. "SUPPORT A SCHOLAR.")' }),
+    defineField({ name: "bodyText", type: "text", title: "Body Paragraph", rows: 3 }),
     defineField({
       name: "primaryButton",
       type: "object",
@@ -30,19 +30,19 @@ export const ctaContentSchema = defineType({
     defineField({
       name: "statsGrid",
       type: "array",
-      title: "Stats Grid (4 items)",
+      title: "Stats Grid",
       of: [
         {
           type: "object",
           name: "statItem",
           fields: [
             { name: "stat", type: "string", title: "Stat Value" },
-            { name: "title", type: "string", title: "Title" },
-            { name: "description", type: "text", title: "Description", rows: 2 },
+            { name: "title", type: "string", title: "Stat Title" },
+            { name: "description", type: "text", title: "Stat Description", rows: 2 },
           ],
         },
       ],
     }),
-    defineField({ name: "legalText", type: "string", title: "Legal / Footer Note" }),
+    defineField({ name: "legalText", type: "string", title: "Footer Legal Text" }),
   ],
 });

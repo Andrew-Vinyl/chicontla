@@ -51,7 +51,7 @@ export interface HomepageContent {
   introEyebrow?: string;
   introHeadingBlack?: string;
   introHeadingGreen?: string;
-  introBodyText?: string;
+  introBodyText?: PortableTextBlock[];
   introPullQuote?: string;
   introGroupPhoto?: { asset?: { url?: string } };
   introPhotoCaption?: string;

@@ -40,7 +40,7 @@ export default function Intro({ data }: IntroProps) {
   const statDescription = data?.introStatDescription ?? FALLBACK.statDescription;
   const closingQuote = data?.introClosingQuote ?? FALLBACK.closingQuote;
 
-  // introBodyText is stored as a plain text field in Sanity
+  // introBodyText is now a plain string (stored as text in Sanity)
   const rawBody: string = (data?.introBodyText as unknown as string) ?? FALLBACK.bodyText;
   const paragraphs = rawBody?.split("\n\n").filter(Boolean) ?? [];
 

@@ -89,10 +89,10 @@ export const homepageSchema = defineType({
     }),
     defineField({
       name: "introBodyText",
-      type: "text",
+      type: "array",
       title: "Intro · Body Text",
-      rows: 8,
       group: "intro",
+      of: [{ type: "block" }],
     }),
     defineField({
       name: "introPullQuote",
@@ -123,7 +123,7 @@ export const homepageSchema = defineType({
     defineField({
       name: "introStatValue",
       type: "string",
-      title: "Intro · Stat Value (e.g. \"10+\")",
+      title: "Intro · Stat Value (e.g. "10+")",
       group: "intro",
     }),
     defineField({
